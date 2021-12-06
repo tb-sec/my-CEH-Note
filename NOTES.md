@@ -1,10 +1,10 @@
 # MY CEH Practical Note
 
 ## Tool Ref.
-nmap : https://www.stationx.net/nmap-cheat-sheet/ 
-Hping DDOS: https://linuxhint.com/hping3/ 
-Hydra : https://github.com/frizb/Hydra-Cheatsheet 
-WindowsCommand : 
+- nmap : https://www.stationx.net/nmap-cheat-sheet/ 
+- Hping DDOS: https://linuxhint.com/hping3/ 
+- Hydra : https://github.com/frizb/Hydra-Cheatsheet 
+- WindowsCommand : 
 https://www.thomas-krenn.com/en/wiki/Cmd_commands_under_Windows 
 https://www.lifewire.com/net-user-command-2618097 
 
